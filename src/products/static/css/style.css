@@ -1,1 +1,5 @@
-@import "reset.css";
+@import url('reset.css');
+
+header {
+  background-color: red;
+}
