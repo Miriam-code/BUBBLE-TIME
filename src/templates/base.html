@@ -6,12 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {% block title %}
   {% endblock %}
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
   {% include 'header.html' %}
   <section id="bubble">
     {% block content %}{% endblock %}
   </section>
+  {% include 'bubble.html' %}
+  {% include 'footer.html' %}
 </body>
 </html>

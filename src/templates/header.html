@@ -1,3 +1,17 @@
 <header>
-  <h1>Bubble Time</h1>
+  <div class="container_logo">
+    <a href="/" title="Retour à l'accueil">
+      <img class="logo" src="static/img/logo.png" alt="logo">
+    </a>
+  </div>
+  <nav>
+    <li><a href="/">Home</a></li>
+    {% if user.is_authenticated %}
+      <li><a href="/profile">Profile</a></li>
+    {% else %}
+      <li><a href="/app/register">Inscription</a></li>
+      <li><a href="/app/login">Connexion</a></li>
+      <li><a href="/app/orders/basket">Panier</a></li>
+    {% endif %}
+  </nav>
 </header>
