@@ -1,4 +1,4 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 {% block content %}
 {% load static %}
 
@@ -9,22 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/products.css' %}">
     <title>Formulaire de Commande</title>
-    <style>
-        .size-option {
-            width: 50px;
-            height: 50px;
-            border: 1px solid black;
-            display: inline-block;
-            margin-right: 10px;
-            cursor: pointer;
-            text-align: center;
-            line-height: 50px;
-        }
-
-        .size-option.selected {
-            background-color: lightblue;
-        }
-    </style>
 </head>
 <body>
     <h1>Formulaire de Commande</h1>
@@ -53,9 +37,9 @@
         <input type="number" id="sugar" name="sugar" min="1" max="5"><br><br>
 
         <div class="size-options" id="size">
-            <div class="size-option" id="small" data-value="small">Petit</div>
-            <div class="size-option" id="medium" data-value="medium">Moyen</div>
-            <div class="size-option" id="large" data-value="large">Grand</div>
+            <div class="size-option small" data-value="small"><img src="{% static 'image/S-drink.PNG' %}" alt="S-drink">Petit</div>
+            <div class="size-option medium" data-value="medium"><img src="{% static 'image/M-drink.PNG' %}" alt="M-drink">Moyen</div>
+            <div class="size-option large" data-value="large"><img src="{% static 'image/L-drink.PNG' %}" alt="L-drink">Grand</div>
             <input type="hidden" name="size" id="selected_size">
         </div><br><br>
         

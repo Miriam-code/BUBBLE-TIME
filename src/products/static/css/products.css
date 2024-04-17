@@ -1,6 +1,3 @@
-/* products.css */
-
-/* Style pour le formulaire */
 form {
     margin: 0 auto;
     max-width: 400px;
@@ -10,14 +7,12 @@ form {
     background-color: #f9f9f9;
 }
 
-/* Style pour les étiquettes */
 label {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
 }
 
-/* Style pour les champs de saisie */
 input[type="text"],
 input[type="number"],
 select {
@@ -26,10 +21,9 @@ select {
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-sizing: border-box; /* Pour inclure les bordures dans la largeur */
+    box-sizing: border-box;
 }
 
-/* Style pour le bouton d'envoi */
 button[type="submit"] {
     width: 100%;
     padding: 10px;
@@ -40,7 +34,29 @@ button[type="submit"] {
     cursor: pointer;
 }
 
-/* Style pour le bouton d'envoi au survol */
 button[type="submit"]:hover {
     background-color: #0056b3;
+}
+
+/* Style for size options */
+.size-options {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.size-option {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.size-option img {
+    height: 80%;
+    width: auto;
+}
+
+.size-option.selected {
+    background-color: lightblue;
 }
