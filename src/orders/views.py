@@ -1,3 +1,8 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def history(request):
+  return render(request, 'orders/history.html')
+
+def basket(request):
+  return render(request, 'orders/basket.html')
