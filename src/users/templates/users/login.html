@@ -1,4 +1,30 @@
 {% extends "base.html" %} 
 {% block content %} 
-<h1>login</h1>
+<section class="container">
+  <div class="container_form">
+    <form action="">
+      <h1>Se connecter</h1>
+  
+      <div class="input-box">
+        <input type="email" placeholder="email" required />
+        <!-- <i class="bx bxs-user"></i> -->
+      </div>
+      <div class="input-box">
+        <input type="password" placeholder="mot de passe" required />
+        <!-- <i class="bx bxs-lock-alt"></i> -->
+      </div>
+  
+      <div class="remember-forgot">
+        <a href="#">mot de passs oublié?</a>
+      </div>
+  
+      <button type="submit" class="btn">Se connecter</button>
+  
+      <div class="register-link">
+        <p>Vous n’avez pas de compte? <a href=" {% url 'users:register' %} ">S'inscrire</a></p>
+      </div>
+    </form>
+  </div>
+</section>
+
 {%endblock content %}
