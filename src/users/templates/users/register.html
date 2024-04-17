@@ -1,4 +1,47 @@
 {% extends "base.html" %} 
+{% block title %}
+<title>Inscription</title>
+{% endblock %}
 {% block content %} 
-<h1>signup</h1>
-{%endblock content %}
+<section class="container">
+  <div class="container_form">
+    <form method="POST" action="{% url 'users:register' %}">
+      <h1>Inscription</h1>
+      {% csrf_token %}
+      <div class="input-box">
+          <div class="input-flex">
+              <input type="text" name="first_name" placeholder="Nom" value="{{ form.first_name.value }}" required />
+              {{ form.first_name.errors }}
+      
+              <input type="text" name="last_name" placeholder="Prénom" value="{{ form.last_name.value }}" required />
+              {{ form.last_name.errors }}
+          </div>
+      </div>
+  
+      <div class="input-box">
+          <input type="email" name="email" placeholder="Email" value="{{ form.email.value }}" required />
+          {{ form.email.errors }}
+      </div>
+      
+      <div class="input-box">
+          {{ form.password.errors }}
+          <input type="password" name="password" placeholder="Mot de passe" required />
+      </div>
+      
+      <div class="input-box">
+          <input type="password" name="confirm_password" placeholder="Confirmer le mot de passe" required />
+          {% if form.errors.confirm_password %}
+              <p>{{ form.errors.confirm_password }}</p>
+          {% endif %}
+      </div>
+      
+      <button type="submit" class="btn">S'inscrire</button>
+  
+      <div class="register-link">
+          <p>Avez déjà un compte? <a href="{% url 'users:login' %}">Se connecter</a></p>
+      </div>
+  </form>
+  
+  </div>
+</section>
+{% endblock content %}
