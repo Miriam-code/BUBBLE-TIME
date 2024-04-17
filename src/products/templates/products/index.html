@@ -1,4 +1,82 @@
 {% extends "base.html" %} 
-{% block content %} 
-<h1>La boutique de Bubble Time</h1>
-{%endblock content %}
+{% block content %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/products.css' %}">
+    <title>Formulaire de Commande</title>
+    <style>
+        .size-option {
+            width: 50px;
+            height: 50px;
+            border: 1px solid black;
+            display: inline-block;
+            margin-right: 10px;
+            cursor: pointer;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        .size-option.selected {
+            background-color: lightblue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Formulaire de Commande</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="basic_taste">Goût de base:</label><br>
+        <select id="basic_taste" name="basic_taste">
+            <option value="milk_coffee">Café au Lait</option>
+            <option value="milk_chocolate">Chocolat au Lait</option>
+            <option value="milk_vanilla">Vanille au Lait</option>
+            <option value="fruit">Fruit</option>
+        </select><br><br>
+        
+        <label for="topping">Topping:</label><br>
+        <select id="topping" name="topping">
+            <option value="tapioca">Tapioca</option>
+            <option value="strawberry">Fraise</option>
+            <option value="pineapple">Ananas</option>
+            <option value="peach">Pêche</option>
+            <option value="kiwi">Kiwi</option>
+            <option value="cherry">Cerise</option>
+            <option value="apple">Pomme</option>
+        </select><br><br>
+        
+        <label for="sugar">Sucre (entre 1 et 5):</label><br>
+        <input type="number" id="sugar" name="sugar" min="1" max="5"><br><br>
+
+        <div class="size-options" id="size">
+            <div class="size-option" id="small" data-value="small">Petit</div>
+            <div class="size-option" id="medium" data-value="medium">Moyen</div>
+            <div class="size-option" id="large" data-value="large">Grand</div>
+            <input type="hidden" name="size" id="selected_size">
+        </div><br><br>
+        
+        <label for="quantity">Quantité:</label><br>
+        <input type="number" id="quantity" name="quantity" min="1"><br><br>
+        
+        <button type="submit">Envoyer</button>
+    </form>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sizeOptions = document.querySelectorAll('.size-option');
+
+        sizeOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                sizeOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                document.getElementById('selected_size').value = option.getAttribute('data-value');
+            });
+        });
+    });
+</script>
+</html>
+{% endblock content %}
