@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Commande</title>
+</head>
+<body>
+    <h1>Formulaire de Commande</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="basic_taste">Goût de base:</label><br>
+        <select id="basic_taste" name="basic_taste">
+            <option value="milk_coffee">Café au Lait</option>
+            <option value="milk_chocolate">Chocolat au Lait</option>
+            <option value="milk_vanilla">Vanille au Lait</option>
+            <option value="fruit">Fruit</option>
+        </select><br><br>
+        
+        <label for="topping">Topping:</label><br>
+        <select id="topping" name="topping">
+            <option value="tapioca">Tapioca</option>
+            <option value="strawberry">Fraise</option>
+            <option value="pineapple">Ananas</option>
+            <option value="peach">Pêche</option>
+            <option value="kiwi">Kiwi</option>
+            <option value="cherry">Cerise</option>
+            <option value="apple">Pomme</option>
+        </select><br><br>
+        
+        <label for="sugar">Sucre (entre 1 et 5):</label><br>
+        <input type="number" id="sugar" name="sugar" min="1" max="5"><br><br>
+        
+        <label for="size">Taille:</label><br>
+        <select id="size" name="size">
+            <option value="small">Petit</option>
+            <option value="medium">Moyen</option>
+            <option value="large">Grand</option>
+        </select><br><br>
+        
+        <!-- <label for="price">Prix:</label><br>
+        <input type="text" id="price" name="price"><br><br> -->
+        
+        <label for="quantity">Quantité:</label><br>
+        <input type="number" id="quantity" name="quantity" min="1"><br><br>
+        
+        <!-- <label for="orders_id">ID de la Commande:</label><br>
+        <input type="number" id="orders_id" name="orders_id"><br><br> -->
+        
+        <button type="submit">Envoyer</button>
+    </form>
+</body>
+</html>

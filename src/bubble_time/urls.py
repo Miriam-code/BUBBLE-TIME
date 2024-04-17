@@ -1,3 +1,12 @@
+from django.contrib import admin
+from django.urls import path
+from products.views import passer_commande
+
+urlpatterns = [
+    path('menu/', passer_commande, name='commande'),
+    path('admin/', admin.site.urls),
+]
+
 """
 URL configuration for bubble_time project.
 
@@ -14,9 +23,3 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-]
