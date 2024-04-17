@@ -2,38 +2,35 @@
 {% block content %} 
 <section class="container">
   <div class="container_form">
-    <form action="">
+    <form method="POST" action="{% url 'users:register' %}">
+      {% csrf_token %}
       <h1>Inscription</h1>
 
       <div class="input-box">
         <div class="input-flex">
-          <input type="text" placeholder="nom" required />
-          <!-- <i class="bx bxs-user"></i> -->
-          <input type="text" placeholder="prénom" required />
-          <!-- <i class="bx bxs-user"></i> -->
+          <input type="text" name="first_name" placeholder="Nom" required />
+          <input type="text" name="last_name" placeholder="Prénom" required />
         </div>
-    
       </div>
   
       <div class="input-box">
-        <input type="email" placeholder="email" required />
-        <!-- <i class="bx bxs-user"></i> -->
+        <input type="email" name="email" placeholder="Email" required />
       </div>
+      
       <div class="input-box">
-        <input type="password" placeholder="mot de passe" required />
-        <!-- <i class="bx bxs-lock-alt"></i> -->
+        <input type="password" name="password" placeholder="Mot de passe" required />
       </div>
+      
       <div class="input-box">
-        <input type="password" placeholder="confirmer le mot de passe" required />
-        <!-- <i class="bx bxs-lock-alt"></i> -->
+        <input type="password" name="confirm_password" placeholder="Confirmer le mot de passe" required />
       </div>
+      
       <button type="submit" class="btn">S'inscrire</button>
   
       <div class="register-link">
-        <p>Avez déjà un compte? <a href=" {% url 'users:login' %} ">Se connecter</a></p>
+        <p>Avez déjà un compte? <a href="{% url 'users:login' %}">Se connecter</a></p>
       </div>
     </form>
   </div>
 </section>
-
-{%endblock content %}
+{% endblock content %}

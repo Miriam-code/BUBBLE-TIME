@@ -2,29 +2,28 @@
 {% block content %} 
 <section class="container">
   <div class="container_form">
-    <form action="">
+    <form method="POST" action="{% url 'users:login' %}">
+      {% csrf_token %}
       <h1>Se connecter</h1>
   
       <div class="input-box">
-        <input type="email" placeholder="email" required />
-        <!-- <i class="bx bxs-user"></i> -->
+        <input type="email" name="email" placeholder="Email" required />
       </div>
+      
       <div class="input-box">
-        <input type="password" placeholder="mot de passe" required />
-        <!-- <i class="bx bxs-lock-alt"></i> -->
+        <input type="password" name="password" placeholder="Mot de passe" required />
       </div>
   
       <div class="remember-forgot">
-        <a href="#">mot de passs oublié?</a>
+        <a href="#">Mot de passe oublié?</a>
       </div>
   
       <button type="submit" class="btn">Se connecter</button>
   
       <div class="register-link">
-        <p>Vous n’avez pas de compte? <a href=" {% url 'users:register' %} ">S'inscrire</a></p>
+        <p>Vous n’avez pas de compte? <a href="{% url 'users:register' %}">S'inscrire</a></p>
       </div>
     </form>
   </div>
 </section>
-
-{%endblock content %}
+{% endblock content %}
