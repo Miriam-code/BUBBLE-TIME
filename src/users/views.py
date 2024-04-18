@@ -87,6 +87,7 @@ def sign_in(request):
 
 def get_me(request):
     payload = verify_token(request)
+    is_authenticated = False
 
     if payload:
         user_email = payload.get('email')
@@ -97,10 +98,27 @@ def get_me(request):
 
         if user_data:
             user_id, first_name, last_name, email = user_data
-            print('user_data', user_data)
-            return render(request, 'users/profile.html', {'user': {'id': user_id, 'first_name': first_name, 'last_name': last_name, 'email': email}})
+            is_authenticated = True
+            return render(request, 'users/profile.html', {'user': {'id': user_id, 'first_name': first_name, 'last_name': last_name, 'email': email}, 'is_authenticated': is_authenticated})
         else:
             return HttpResponse("Utilisateur non trouvé.")
 
     else:
         return HttpResponse("Token non trouvé. Veuillez vous connecter.")
+    
+def auth_context(request):
+    payload = verify_token(request)
+    is_authenticated = False
+    user_data = None
+
+    if payload:
+        is_authenticated = True
+        user_data = {
+            'user_id': payload.get('user_id'),
+            'first_name': payload.get('first_name'),
+            'last_name': payload.get('last_name'),
+            'email': payload.get('email')
+        }
+
+    return {'is_authenticated': is_authenticated, 'user_data': user_data}
+
