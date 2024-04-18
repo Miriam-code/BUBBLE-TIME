@@ -1,4 +1,8 @@
 {% extends "base.html" %} 
+
 {% block content %} 
-<h1>profile</h1>
-{%endblock content %}
+    <h1>Profile</h1>
+    <p>Nom: {{ user.first_name }}</p>
+    <p>Prénom: {{ user.last_name }}</p>
+    <p>Email: {{ user.email }}</p>
+{% endblock content %}
