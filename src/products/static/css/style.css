@@ -13,7 +13,7 @@ body {
 
 /* register & login */
 
-.error ul,li {
+.error ul,li  {
   color: red;
   text-align: center;
 }

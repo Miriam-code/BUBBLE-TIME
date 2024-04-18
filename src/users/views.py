@@ -75,11 +75,12 @@ def sign_in(request):
 
                 response = redirect('users:profile')
                 response.set_cookie('jwt_token', token)
-                
 
                 return response
-
-        return render(request, 'users/login.html', {'error': 'Email ou mot de passe incorrect.'})
+            else:
+                return render(request, 'users/login.html', {'error': 'Mot de passe incorrect.'})
+        else:
+            return render(request, 'users/login.html', {'error': 'Email incorrect.'})
 
     else:
         return render(request, 'users/login.html')
@@ -106,7 +107,7 @@ def get_me(request):
         return HttpResponse("Token non trouvé. Veuillez vous connecter.")
     
 def logout(request):
-    response = redirect('products:index')  # Remplacez 'products:index' par le nom de votre vue d'accueil des produits
+    response = redirect('products:index')
     response.delete_cookie('jwt_token')
     return response
     
