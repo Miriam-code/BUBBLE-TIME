@@ -10,14 +10,6 @@ def passer_commande(request):
             form.save()
             return redirect('liste_commandes')
     else:
-<<<<<<< Updated upstream
-        form = OrdersItemForm()
-    return render(request, 'commande.html', {'form': form})
-
-def liste_commandes(request):
-    commandes = OrdersItem.objects.all()
-    return render(request, 'liste_commandes.html', {'commandes': commandes})
-=======
         form = CommandeForm()
     
     return render(request, 'products/index.html', {'form': form})
@@ -25,4 +17,3 @@ def liste_commandes(request):
 def order_history(request):
     orders = OrdersItem.objects.all()
     return render(request, 'products/order_history.html', {'orders': orders})
->>>>>>> Stashed changes
