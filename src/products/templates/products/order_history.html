@@ -1,0 +1,28 @@
+{% extends "base.html" %} 
+{% block content %}
+<h1>Historique des commandes</h1>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Goût de base</th>
+      <th>Topping</th>
+      <th>Sucre</th>
+      <th>Taille</th>
+      <th>Quantité</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for order in orders %}
+    <tr>
+      <td>{{ order.id }}</td>
+      <td>{{ order.basic_taste }}</td>
+      <td>{{ order.topping }}</td>
+      <td>{{ order.sugar }}</td>
+      <td>{{ order.size }}</td>
+      <td>{{ order.quantity }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock content %}

@@ -27,3 +27,7 @@ def index(request):
         form = CommandeForm()
     
     return render(request, 'products/index.html', {'form': form})
+
+def order_history(request):
+    orders = OrdersItem.objects.all()
+    return render(request, 'products/order_history.html', {'orders': orders})
