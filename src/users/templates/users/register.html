@@ -7,7 +7,7 @@
   <div class="container_form">
     <form method="POST" action="{% url 'users:register' %}">
       <h1>Inscription</h1>
-      {% csrf_token %}
+      <!-- {% csrf_token %} -->
       <div class="input-box">
           <div class="input-flex">
               <input type="text" name="first_name" placeholder="Nom" value="{{ form.first_name.value }}" required />
