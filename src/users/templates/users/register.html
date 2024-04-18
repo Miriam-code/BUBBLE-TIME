@@ -9,28 +9,30 @@
       <h1>Inscription</h1>
       <div class="input-box">
           <div class="input-flex">
-              <input type="text" name="first_name" placeholder="Nom" value="{{ form.first_name.value }}" required />
-              {{ form.first_name.errors }}
+            <input type="text" name="first_name" placeholder="Nom" value="{{ form.first_name.value|default:'' }}" pattern="[A-Za-z]{2,}(?: [A-Za-z]+)?" title="Veuillez entrer au moins deux lettres et éventuellement des espaces"   required />
+
+              <p class="error">{{ form.errors.first_name }}</p> 
       
-              <input type="text" name="last_name" placeholder="Prénom" value="{{ form.last_name.value }}" required />
-              {{ form.last_name.errors }}
+              <input type="text" name="last_name" placeholder="Prénom" value="{{ form.last_name.value|default:'' }}" pattern="[A-Za-z]{2,}(?: [A-Za-z]+)?" title="Veuillez entrer au moins deux lettres et éventuellement des espaces"   required />
+             <p class="error">{{ form.errors.last_name }}</p>
           </div>
       </div>
   
       <div class="input-box">
-          <input type="email" name="email" placeholder="Email" value="{{ form.email.value }}" required />
-          {{ form.email.errors }}
+          <input type="email" name="email" placeholder="Email" value="{{ form.email.value |default:'' }}" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Veuillez entrer une adresse email valide" required />
+         <p class="error">{{ form.errors.email }}</p>
       </div>
       
       <div class="input-box">
-          {{ form.password.errors }}
-          <input type="password" name="password" placeholder="Mot de passe" required />
+          
+          <input type="password" name="password" placeholder="Mot de passe" pattern=".{6,}" title="Le mot de passe doit contenir au moins 6 caractères" required />
+          <p class="error">{{ form.errors.password }}</p>
       </div>
       
       <div class="input-box">
-          <input type="password" name="confirm_password" placeholder="Confirmer le mot de passe" required />
+          <input type="password" name="confirm_password" placeholder="Confirmer le mot de passe" pattern=".{6,}" title="Le mot de passe doit contenir au moins 6 caractères" required />
           {% if form.errors.confirm_password %}
-              <p>{{ form.errors.confirm_password }}</p>
+              <p class="error">{{ form.errors.confirm_password }}</p>
           {% endif %}
       </div>
       

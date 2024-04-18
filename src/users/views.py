@@ -31,7 +31,6 @@ def sign_up(request):
                 cursor.execute("INSERT INTO users (first_name, last_name, email, password) VALUES (%s, %s, %s, %s)",
                                [first_name, last_name, email, hashed_password])
 
-            # Création du token JWT
             payload = {
                 'first_name': first_name,
                 'last_name': last_name,
@@ -105,6 +104,11 @@ def get_me(request):
 
     else:
         return HttpResponse("Token non trouvé. Veuillez vous connecter.")
+    
+def logout(request):
+    response = redirect('products:index')  # Remplacez 'products:index' par le nom de votre vue d'accueil des produits
+    response.delete_cookie('jwt_token')
+    return response
     
 def auth_context(request):
     payload = verify_token(request)
