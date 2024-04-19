@@ -6,13 +6,14 @@
     </a>
   </div>
   <nav>
-    <li><a href="/">Home</a></li>
-    {% if user.is_authenticated %}
-      <li><a href="/profile">Profile</a></li>
+    <li><a href="/">Accueil</a></li>
+    {% if is_authenticated %}
+      <li><a href="/users/profile">Profile</a></li>
+      <li><a href="{% url 'users:logout'%}">Déconnexion</a></li>
     {% else %}
       <li><a href="/users/register">Inscription</a></li>
       <li><a href="/users/login">Connexion</a></li>
-      <li><a href="/app/orders/basket">Panier</a></li>
     {% endif %}
+    <li><a href="/app/orders/basket">Panier</a></li>
   </nav>
 </header>

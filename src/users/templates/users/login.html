@@ -6,15 +6,22 @@
 <section class="container">
   <div class="container_form">
     <form method="POST" action="{% url 'users:login' %}">
-      {% csrf_token %}
       <h1>Se connecter</h1>
   
+     
+  
       <div class="input-box">
-        <input type="email" name="email" placeholder="Email" required />
+        <input type="email" name="email" placeholder="Email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Veuillez entrer une adresse email valide" required />
+        {% if error == "Email incorrect." %}
+        <p style="color: red; text-align: center;">{{ error }}</p>
+        {% endif %}
       </div>
       
       <div class="input-box">
-        <input type="password" name="password" placeholder="Mot de passe" required />
+        <input type="password" name="password" placeholder="Mot de passe" pattern=".{6,}" title="Le mot de passe doit contenir au moins 6 caractères" required />
+        {% if error == "Mot de passe incorrect." %}
+        <p style="color: red; text-align: center;">{{ error }}</p>
+        {% endif %}
       </div>
   
       <div class="remember-forgot">

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.db import connection
 
+
 def index(request):
     with connection.cursor() as cursor:
         cursor.execute("SELECT basic_taste , toppings FROM bubbles")
