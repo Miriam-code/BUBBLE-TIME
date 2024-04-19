@@ -31,7 +31,11 @@ def sign_up(request):
                 cursor.execute("INSERT INTO users (first_name, last_name, email, password) VALUES (%s, %s, %s, %s)",
                                [first_name, last_name, email, hashed_password])
 
+                # Récupération de l'ID de l'utilisateur nouvellement inscrit
+                user_id = cursor.lastrowid
+
             payload = {
+                'user_id': user_id,  # Utilisation de l'ID de l'utilisateur nouvellement inscrit
                 'first_name': first_name,
                 'last_name': last_name,
                 'email': email,
@@ -48,6 +52,7 @@ def sign_up(request):
         form = RegisterForm()
 
     return render(request, 'users/register.html', {'form': form})
+
 
 
 
