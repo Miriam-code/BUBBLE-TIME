@@ -2,13 +2,8 @@
 
 /****************************************** HEADER *********************************************************************/ 
 body {
-
   background: linear-gradient(0deg,rgb(255, 67, 67) 0%,  rgba(255,145,77,1) 100%);
-  height: 100vh;
-  width: 100%;
-  background-position: top;
-  background-repeat: no-repeat;
-  background-size: cover;
+  font-family:'fantasy'
 }
 
 /* register & login */
@@ -69,11 +64,8 @@ background-size: cover;
 }
 
 .input-flex input {
-  
  height: 50px;
 }
-
-
 
 .input-box input::placeholder {
   color: #fff;
@@ -176,4 +168,118 @@ nav li a:hover {
   display: flex;
   flex-direction: row;
   justify-content: end;
+}
+
+/****************************************** MENU *********************************************************************/ 
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  border-radius: 8px;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 40px;
+}
+#bubble{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.bubbles_list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.bubble{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center ;
+  width: 30%;
+  margin-bottom: 20px;
+}
+.bubble img {
+  width: 40%;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+}
+
+
+.bubble input , .bubble select , .form_bubble input , .form_bubble select {
+  max-width: 190px;
+  height: 40px;
+  background-color: #05060f0a;
+  border-radius: .5rem;
+  padding: 2px;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+}
+
+.bubble button , .form_bubble button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  cursor: pointer;
+  width: 150px;
+  height: 50px;
+  background-image: linear-gradient(to top, #D8D9DB 0%, #fff 80%, #FDFDFD 100%);
+  border-radius: 30px;
+  border: 1px solid #8F9092;
+  transition: all 0.2s ease;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #606060;
+  text-shadow: 0 1px #fff;
+}
+
+.bubble button:hover {
+  box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 3px 3px #CECFD1;
+}
+
+.bubble button:active {
+  box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
+}
+
+.bubble button:focus {
+  box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
+}
+
+.form_bubble{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
 }

@@ -1,0 +1,41 @@
+{% load static %}
+<div class="menu">
+    <h1> MENU </h1>   
+    <div class="bubbles_list">
+        {% for bubble in bubbles %}
+        {% for image in images %}
+        {% if forloop.counter0 == forloop.parentloop.counter0 %}
+        <form method="POST" action="{% url 'orders:ajouter_panier' %}" class="bubble">
+            {% csrf_token %}
+            <input type="hidden" name="basic_taste" value="{{ bubble.0 }}">
+            <input type="hidden" name="topping" value="{{ bubble.1 }}">
+            <div class="column" >
+                <img src="{% static 'img/' %}{{ image }}" alt="Bubble Image">
+                <h3><strong> Bubble {{ bubble.0 }}</strong></h3>
+                <p><strong> Toppings: {{ bubble.1 }}</strong></p>
+                <div class="row">
+                    <label for="sugar">Sugar (1 > 5):</label><br>
+                    <input type="number" id="sugar" name="sugar" min="1" max="5" required><br><br>
+                </div>
+                <div class="row">
+                    <label for="size">Size:</label><br>
+                    <select id="size" name="size" required>
+                        <option value="small">Small</option>
+                        <option value="medium">Medium</option>
+                        <option value="large">Large</option>
+                    </select><br><br>
+                </div>
+                <div class="row">
+                    <label for="quantity">Quantity:</label><br>
+                    <input type="number" id="quantity" name="quantity" min="1" max="5" required><br><br>
+                </div>
+                <button type="submit">Add to Cart</button>
+            </div>
+        </form>        
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+    </div>  
+</div>
+
+

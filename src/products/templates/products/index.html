@@ -1,4 +1,70 @@
 {% extends "base.html" %} 
 {% block content %} 
-<h1>La boutique de Bubble Time</h1>
-{%endblock content %}
+
+{% include 'products/menu.html' with bubbles=bubbles %}
+
+   <section>
+
+    <form method="POST" action="{% url 'orders:ajouter_panier' %}" class="form_bubble">
+
+        <h2>Créez votre Bubble Tea</h2>
+        {% csrf_token %}
+
+        <div class="row">
+            <label for="basic_taste">Basic taste:</label><br>
+            <select id="basic_taste" name="basic_taste" required>
+            <option value="Milk Coffee">Milk Coffee</option>
+            <option value="Milk Chocolate">Milk Chocolate</option>
+            <option value="Milk Vanilla">Milk Vanilla</option>
+            <option value="Tea Pineapple">Tea Pineapple</option>
+            <option value="Tea Strawberry">Tea Strawberry</option>
+            <option value="Tea Peach">Tea Peach</option>
+            <option value="Tea Watermelon">Tea Watermelon</option>
+            <option value="Tea Rasperry">Tea Rasperry</option>
+            <option value="Tea Mango">Tea Mango</option>
+        </select><br><br>
+
+        </div>
+
+        <div class="row">
+            <label for="topping">Topping:</label><br>
+            <select id="topping" name="topping" required>
+            <option value="Tapioca">Tapioca</option>
+            <option value="Strawberry">Strawberry</option>
+            <option value="Pineapple">Pineapple</option>
+            <option value="Peach">Peach</option>
+            <option value="Kiwi">Kiwi</option>
+            <option value="Cherry">Cherry</option>
+            <option value="Apple">Apple</option>
+        </select><br><br>
+        </div>
+
+        <div class="row">
+            <label for="sugar">Sugar ( 1 > 5):</label><br>
+            <input type="number" id="sugar" name="sugar" min="1" max="5" required><br><br>      
+        </div>
+
+        <div class="row">
+            <label for="size">Size</label><br>
+            <div class="size-options" id="size">
+            <select id="size" name="size"required >
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+            </select>
+        </div>
+
+        <div class="row">
+            <label for="quantity">Quantity:</label><br>
+            <input type="number" id="quantity" name="quantity" min="1"required><br><br>
+        </div>
+
+        <button type="submit">Add Cart</button>
+
+    </form>
+    
+   </section>
+
+    
+
+{% endblock content %}

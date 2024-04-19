@@ -1,4 +1,36 @@
 {% extends "base.html" %} 
 {% block content %} 
-<h1>panier</h1>
+<h1>Panier</h1>
+
+<div class="bubbles_list">
+
+    <form method="POST" action="{% url 'orders:valider_panier' %}">
+        {% csrf_token %}
+        <ul>
+            {% for item in panier %}
+                <li>
+                    <strong> Bubble {{ item.basic_taste }}</strong>
+                    <strong> topping : {{ item.topping }}</strong>
+                    <strong> sugar : {{ item.sugar }}</strong>
+                    <strong> size : {{ item.size }}</strong>
+                    <strong> quantity : {{ item.quantity }}</strong>
+                    <strong> unit price : {{ item.unit_price }} €</strong>
+                    <strong> total : {{ item.total }} € </strong>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <strong>Total global de la commande : {{ total_global }} €</strong>
+        <input type="hidden" name="total_global" value="{{ total_global }}">
+    
+        <button type="submit">Valider le panier</button>
+    </form>
+
+    <form method="POST" action="{% url 'orders:vider_panier' %}">
+        {% csrf_token %}
+        <button type="submit">Vider le panier</button>
+    </form>
+
+</div>
+
 {%endblock content %}

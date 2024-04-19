@@ -1,7 +1,8 @@
+{% load static %}
 <header>
   <div class="container_logo">
     <a href="/" title="Retour à l'accueil">
-      <img class="logo" src="static/img/logo.png" alt="logo">
+      <img class="logo" src="{% static 'img/logo.png' %}" alt="logo">
     </a>
   </div>
   <nav>
@@ -9,8 +10,8 @@
     {% if user.is_authenticated %}
       <li><a href="/profile">Profile</a></li>
     {% else %}
-      <li><a href="/app/register">Inscription</a></li>
-      <li><a href="/app/login">Connexion</a></li>
+      <li><a href="/users/register">Inscription</a></li>
+      <li><a href="/users/login">Connexion</a></li>
       <li><a href="/app/orders/basket">Panier</a></li>
     {% endif %}
   </nav>
