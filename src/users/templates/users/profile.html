@@ -5,4 +5,14 @@
     <p>Nom: {{ user.first_name }}</p>
     <p>Prénom: {{ user.last_name }}</p>
     <p>Email: {{ user.email }}</p>
+    <p>id: {{ user.id }}</p>
+
+    <form method="POST" action="{% url 'users:update_profile' %}">
+        {% csrf_token %}
+      <input type="text" name="first_name" placeholder="Prénom" value="{{ user.first_name }}"><br>
+      <input type="text" name="last_name" placeholder="Nom" value="{{ user.last_name }}"><br>
+      <input type="password" name="password" placeholder="Mot de passe" value=""><br>
+      <button type="submit">Mettre à jour</button>
+    </form>
+
 {% endblock content %}

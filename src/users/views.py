@@ -132,3 +132,34 @@ def auth_context(request):
 
     return {'is_authenticated': is_authenticated, 'user_data': user_data}
 
+def update_profile(request):
+    auth_data = auth_context(request)
+    
+    if auth_data['is_authenticated']:
+        user_id = auth_data['user_data']['user_id']
+        
+        if request.method == 'POST':
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
+            password = request.POST.get('password')
+
+            if first_name and last_name and password:
+                hashed_password = make_password(password)
+
+                with connection.cursor() as cursor:
+                    try:
+                        print("User id:", user_id)
+                        cursor.execute("UPDATE users SET first_name = %s, last_name = %s, password = %s WHERE id = %s", [first_name, last_name, hashed_password, user_id])
+                        print("Profil utilisateur mis à jour avec succès.")
+                    except Exception as e:
+                        print("Erreur lors de la mise à jour du profil utilisateur:", e)
+
+                return redirect('profile')
+            else:
+                print("Données manquantes pour la mise à jour du profil.")
+        else:
+            print("Méthode HTTP non autorisée pour cette vue.")
+    else:
+        print("Utilisateur non authentifié.")
+
+    return render(request, 'profile.html')
