@@ -6,7 +6,7 @@ import jwt
 from datetime import datetime, timedelta
 from .utils import verify_token
 from django.http import HttpResponse
-
+from django.contrib.auth import logout
 
 def sign_up(request):
     if request.method == 'POST':
@@ -31,11 +31,10 @@ def sign_up(request):
                 cursor.execute("INSERT INTO users (first_name, last_name, email, password) VALUES (%s, %s, %s, %s)",
                                [first_name, last_name, email, hashed_password])
 
-                # Récupération de l'ID de l'utilisateur nouvellement inscrit
                 user_id = cursor.lastrowid
 
             payload = {
-                'user_id': user_id,  # Utilisation de l'ID de l'utilisateur nouvellement inscrit
+                'user_id': user_id,
                 'first_name': first_name,
                 'last_name': last_name,
                 'email': email,
@@ -154,7 +153,9 @@ def update_profile(request):
                     except Exception as e:
                         print("Erreur lors de la mise à jour du profil utilisateur:", e)
 
-                return redirect('profile')
+                auth_data['user_data']['first_name'] = first_name
+                auth_data['user_data']['last_name'] = last_name
+                return render(request, 'users/profile.html', {'user': auth_data['user_data']})
             else:
                 print("Données manquantes pour la mise à jour du profil.")
         else:
@@ -162,4 +163,28 @@ def update_profile(request):
     else:
         print("Utilisateur non authentifié.")
 
-    return render(request, 'profile.html')
+    return render(request, 'users/profile.html')
+
+
+
+def delete_profile(request):
+    auth_data = auth_context(request)
+    
+    if auth_data['is_authenticated']:
+        user_id = auth_data['user_data']['user_id']
+        
+        if request.method == 'POST':
+            with connection.cursor() as cursor:
+                try:
+                    cursor.execute("DELETE FROM users WHERE id = %s", [user_id])
+                    print("Utilisateur supprimé avec succès")
+                    logout(request)
+                    return redirect('/')
+                except Exception as e:
+                    print("Erreur lors de la suppression de l'utilisateur:", e)
+        else:
+            print("Méthode HTTP non autorisée")
+    else:
+        print("Utilisateur non authentifié")
+
+    return render(request, 'users/profile.html')

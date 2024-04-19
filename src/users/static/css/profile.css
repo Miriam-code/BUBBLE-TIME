@@ -1,0 +1,48 @@
+.profile-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.profile-info {
+    margin-bottom: 20px;
+}
+
+.profile-form input {
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 100%;
+}
+
+.profile-form button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.profile-form button:hover {
+    background-color: #45a049;
+}
+
+.profile-form button[type="submit"] {
+    margin-top: 10px;
+}
+
+.delete-form button {
+    padding: 10px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-form button:hover {
+    background-color: #d32f2f;
+}

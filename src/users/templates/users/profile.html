@@ -1,6 +1,6 @@
 {% extends "base.html" %} 
+{% block content %}
 
-{% block content %} 
     <h1>Profile</h1>
     <p>Nom: {{ user.first_name }}</p>
     <p>Prénom: {{ user.last_name }}</p>
@@ -15,4 +15,14 @@
       <button type="submit">Mettre à jour</button>
     </form>
 
+    <h2>Quitter définitivement l'application</h2>
+    <p>Est tu certain de vouloir supprimer ton profil ?</p>
+    <form action="" method="post">
+        {% csrf_token %}
+        <button type="submit">Delete Account</button>
+    </form>
+
 {% endblock content %}
+
+{% load static %} 
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
