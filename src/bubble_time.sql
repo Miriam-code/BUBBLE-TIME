@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 16 avr. 2024 à 10:44
+-- Généré le : ven. 19 avr. 2024 à 15:00
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -146,14 +146,21 @@ CREATE TABLE `auth_user_user_permissions` (
 
 CREATE TABLE `bubbles` (
   `id` int(11) NOT NULL,
-  `basic_taste` enum('milk_coffee','milk_chocolate','milk_vanilla','fruit') DEFAULT NULL,
-  `toppings` enum('tapioca','strawberry','pineapple','peach','kiwi','cherry','apple') DEFAULT NULL,
-  `sugar` int(11) DEFAULT NULL CHECK (`sugar` >= 1 and `sugar` <= 5),
-  `size` enum('small','medium','large') DEFAULT NULL,
-  `price` decimal(10,2) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `basic_taste` varchar(50) DEFAULT NULL,
+  `toppings` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `bubbles`
+--
+
+INSERT INTO `bubbles` (`id`, `basic_taste`, `toppings`) VALUES
+(1, 'Milk Vanilla', 'Tapioca'),
+(2, 'Milk Chocolate', 'Tapioca'),
+(3, 'Milk Coffee', 'Tapioca'),
+(4, 'Tea Pineapple', 'Passion Fruit'),
+(5, 'Tea Strawberry', 'Rasperry'),
+(6, 'Tea Peach', 'Watermelon');
 
 -- --------------------------------------------------------
 
@@ -250,6 +257,7 @@ CREATE TABLE `django_session` (
 --
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
+('fcaemtqia4tlflf1tk11nl66wa1a2d2q', 'eyJ0b3RhbF9nbG9iYWwiOjB9:1rxRlg:MK7EdSaDotxfs1A0F7oyehPyyqxj4_J8ozpqoW1gXHk', '2024-05-02 13:25:36.202753'),
 ('pa5kz1ndkc39yw34082obm4wuzixmoeh', '.eJxVjEEOwiAQRe_C2hBAkMGl-56BDDMgVUOT0q6Md7dNutDtf-_9t4i4LjWuPc9xZHEVWpx-t4T0zG0H_MB2nyRNbZnHJHdFHrTLYeL8uh3u30HFXreaCAucrfJA5J33KThGY8khgg2e2GggCwouZHIh5sDaskrgvNusIj5f8r04Rg:1rwRt6:U3qYWNsECOdE-GKQ2X1nv2nOnDuyUgTUDLdyRe38Bsc', '2024-04-29 19:21:08.051469');
 
 -- --------------------------------------------------------
@@ -260,12 +268,22 @@ INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALU
 
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
-  `total` int(11) DEFAULT NULL,
+  `total` decimal(11,0) DEFAULT NULL,
   `status` varchar(50) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `orders_items_id` int(11) DEFAULT NULL
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `orders`
+--
+
+INSERT INTO `orders` (`id`, `total`, `status`, `created_at`, `updated_at`, `user_id`) VALUES
+(1, 0, 'en cours de préparation', '2024-04-18 14:15:53', '2024-04-18 14:15:53', 0),
+(2, 11, 'en cours de préparation', '2024-04-18 14:17:00', '2024-04-18 14:17:00', 0),
+(3, 13, 'en cours de préparation', '2024-04-18 14:19:35', '2024-04-18 14:19:35', 0),
+(4, 30, 'en cours de préparation', '2024-04-18 14:24:04', '2024-04-18 14:24:04', 0);
 
 -- --------------------------------------------------------
 
@@ -275,16 +293,24 @@ CREATE TABLE `orders` (
 
 CREATE TABLE `orders_items` (
   `id` int(11) NOT NULL,
-  `basic_taste` enum('milk_coffee','milk_chocolate','milk_vanilla','fruit') DEFAULT NULL,
-  `topping` enum('tapioca','strawberry','pineapple','peach','kiwi','cherry','apple') DEFAULT NULL,
-  `sugar` int(11) DEFAULT NULL CHECK (`sugar` >= 1 and `sugar` <= 5),
-  `size` enum('small','medium','large') DEFAULT NULL,
+  `basic_taste` varchar(50) DEFAULT NULL,
+  `topping` varchar(50) DEFAULT 'Tapioka',
+  `sugar` int(11) DEFAULT 1,
+  `size` varchar(50) DEFAULT 'small',
   `price` decimal(10,2) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `orders_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `orders_items`
+--
+
+INSERT INTO `orders_items` (`id`, `basic_taste`, `topping`, `sugar`, `size`, `price`, `quantity`, `created_at`, `updated_at`, `orders_id`) VALUES
+(1, 'Milk Coffee', 'Tapioca', 2, 'large', 13.00, 2, '2024-04-18 14:24:04', '2024-04-18 14:24:04', 4),
+(2, 'Tea Pineapple', 'Pineapple', 2, 'medium', 16.50, 3, '2024-04-18 14:24:04', '2024-04-18 14:24:04', 4);
 
 -- --------------------------------------------------------
 
@@ -389,8 +415,7 @@ ALTER TABLE `django_session`
 -- Index pour la table `orders`
 --
 ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_orders_items_id` (`orders_items_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `orders_items`
@@ -449,7 +474,7 @@ ALTER TABLE `auth_user_user_permissions`
 -- AUTO_INCREMENT pour la table `bubbles`
 --
 ALTER TABLE `bubbles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `django_admin_log`
@@ -473,13 +498,13 @@ ALTER TABLE `django_migrations`
 -- AUTO_INCREMENT pour la table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `orders_items`
 --
 ALTER TABLE `orders_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `users`
@@ -524,12 +549,6 @@ ALTER TABLE `auth_user_user_permissions`
 ALTER TABLE `django_admin_log`
   ADD CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   ADD CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
-
---
--- Contraintes pour la table `orders`
---
-ALTER TABLE `orders`
-  ADD CONSTRAINT `fk_orders_items_id` FOREIGN KEY (`orders_items_id`) REFERENCES `orders_items` (`id`);
 
 --
 -- Contraintes pour la table `orders_items`
