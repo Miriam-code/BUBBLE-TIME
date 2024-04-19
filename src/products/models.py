@@ -1,11 +1,11 @@
 from django.db import models
 
-class OrdersItem(models.Model):
-    basic_taste = models.CharField(max_length=100)
-    topping = models.CharField(max_length=100)
-    sugar = models.IntegerField()
-    size = models.CharField(max_length=10)
-    quantity = models.IntegerField()
+class Bubble(models.Model):
+    basic_taste = models.CharField(max_length=50, null=True)
+    toppings = models.CharField(max_length=50, null=True)
+
+    def __str__(self):
+        return f"Basic Taste: {self.basic_taste}, Toppings: {self.toppings}"
     
     class Meta:
-        db_table = 'orders_items'
+        db_table = 'bubbles'
