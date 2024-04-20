@@ -54,10 +54,11 @@ def basket(request):
     return render(request, 'orders/basket.html', {'panier': panier, 'total_global': total_global})
 
 def valider_panier(request):
+
     if request.method == 'POST':
-        auth_context_data = auth_context(request)  # Obtenir le contexte d'authentification
+        auth_context_data = auth_context(request)  
         if auth_context_data['is_authenticated']:
-            user_id = auth_context_data['user_data']['user_id']  # Récupérer l'ID de l'utilisateur
+            user_id = auth_context_data['user_data']['user_id'] 
         
             total_global = sum(item['total'] for item in panier)
             
@@ -78,6 +79,6 @@ def valider_panier(request):
 
             return redirect('users:profile')
         else:
-            return redirect('index')
+            return redirect('users:login')
     else:
         return redirect('index')

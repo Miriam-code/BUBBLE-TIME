@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 19 avr. 2024 à 15:00
+-- Généré le : sam. 20 avr. 2024 à 11:45
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -280,10 +280,17 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `total`, `status`, `created_at`, `updated_at`, `user_id`) VALUES
-(1, 0, 'en cours de préparation', '2024-04-18 14:15:53', '2024-04-18 14:15:53', 0),
-(2, 11, 'en cours de préparation', '2024-04-18 14:17:00', '2024-04-18 14:17:00', 0),
-(3, 13, 'en cours de préparation', '2024-04-18 14:19:35', '2024-04-18 14:19:35', 0),
-(4, 30, 'en cours de préparation', '2024-04-18 14:24:04', '2024-04-18 14:24:04', 0);
+(7, 6, 'en cours de préparation', '2024-04-20 00:11:59', '2024-04-20 00:11:59', 1),
+(8, 0, 'en cours de préparation', '2024-04-20 00:16:55', '2024-04-20 00:16:55', 1),
+(9, 17, 'en cours de préparation', '2024-04-20 00:20:23', '2024-04-20 00:20:23', 1),
+(10, 0, 'en cours de préparation', '2024-04-20 00:24:12', '2024-04-20 00:24:12', 1),
+(11, 4, 'en cours de préparation', '2024-04-20 00:25:29', '2024-04-20 00:25:29', 1),
+(12, 8, 'en cours de préparation', '2024-04-20 00:27:42', '2024-04-20 00:27:42', 1),
+(13, 8, 'en cours de préparation', '2024-04-20 00:31:17', '2024-04-20 00:31:17', 1),
+(14, 4, 'en cours de préparation', '2024-04-20 00:36:54', '2024-04-20 00:36:54', 1),
+(15, 4, 'en cours de préparation', '2024-04-20 00:45:07', '2024-04-20 00:45:07', 1),
+(16, 8, 'en cours de préparation', '2024-04-20 00:47:05', '2024-04-20 00:47:05', 1),
+(17, 8, 'en cours de préparation', '2024-04-20 00:57:15', '2024-04-20 00:57:15', 2);
 
 -- --------------------------------------------------------
 
@@ -309,8 +316,7 @@ CREATE TABLE `orders_items` (
 --
 
 INSERT INTO `orders_items` (`id`, `basic_taste`, `topping`, `sugar`, `size`, `price`, `quantity`, `created_at`, `updated_at`, `orders_id`) VALUES
-(1, 'Milk Coffee', 'Tapioca', 2, 'large', 13.00, 2, '2024-04-18 14:24:04', '2024-04-18 14:24:04', 4),
-(2, 'Tea Pineapple', 'Pineapple', 2, 'medium', 16.50, 3, '2024-04-18 14:24:04', '2024-04-18 14:24:04', 4);
+(13, 'Milk Chocolate', 'Tapioca', 2, 'small', 8.00, 2, '2024-04-20 00:57:15', '2024-04-20 00:57:15', 17);
 
 -- --------------------------------------------------------
 
@@ -327,6 +333,14 @@ CREATE TABLE `users` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `password`, `email`, `created_at`, `updated_at`) VALUES
+(1, 'Ladjoui', 'Miriam', 'pbkdf2_sha256$720000$vk4Anddb23ZaD3S5m8qh8o$aR19km60bKVBGC+RPrXidP/3tTTWBuiDFKtR4DIhyK0=', 'miriamladjoui@gmail.com', '2024-04-19 13:39:46', '2024-04-19 13:39:46'),
+(2, 'ines', 'sarah', 'pbkdf2_sha256$720000$Tiz9IyCEm0ovvnYv8oQVGP$QgirdtjytWJR9OW/GleZmbPNsFFcinDh5zkGrf3+XHk=', 'miriam@gmail.com', '2024-04-20 00:52:57', '2024-04-20 00:52:57');
 
 --
 -- Index pour les tables déchargées
@@ -421,8 +435,7 @@ ALTER TABLE `orders`
 -- Index pour la table `orders_items`
 --
 ALTER TABLE `orders_items`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_orders_id` (`orders_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `users`
@@ -498,19 +511,19 @@ ALTER TABLE `django_migrations`
 -- AUTO_INCREMENT pour la table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT pour la table `orders_items`
 --
 ALTER TABLE `orders_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Contraintes pour les tables déchargées
