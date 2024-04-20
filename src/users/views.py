@@ -6,6 +6,7 @@ import jwt
 from datetime import datetime, timedelta
 from .utils import verify_token
 from django.http import HttpResponse
+from django.contrib.auth import logout
 from django.http import Http404
 
 
@@ -32,7 +33,10 @@ def sign_up(request):
                 cursor.execute("INSERT INTO users (first_name, last_name, email, password) VALUES (%s, %s, %s, %s)",
                                [first_name, last_name, email, hashed_password])
 
+                user_id = cursor.lastrowid
+
             payload = {
+                'user_id': user_id,
                 'first_name': first_name,
                 'last_name': last_name,
                 'email': email,
@@ -156,3 +160,60 @@ def auth_context(request):
 
     return {'is_authenticated': is_authenticated, 'user_data': user_data}
 
+def update_profile(request):
+    auth_data = auth_context(request)
+    
+    if auth_data['is_authenticated']:
+        user_id = auth_data['user_data']['user_id']
+        
+        if request.method == 'POST':
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
+            password = request.POST.get('password')
+
+            if first_name and last_name and password:
+                hashed_password = make_password(password)
+
+                with connection.cursor() as cursor:
+                    try:
+                        print("User id:", user_id)
+                        cursor.execute("UPDATE users SET first_name = %s, last_name = %s, password = %s WHERE id = %s", [first_name, last_name, hashed_password, user_id])
+                        print("Profil utilisateur mis à jour avec succès.")
+                    except Exception as e:
+                        print("Erreur lors de la mise à jour du profil utilisateur:", e)
+
+                auth_data['user_data']['first_name'] = first_name
+                auth_data['user_data']['last_name'] = last_name
+                return render(request, 'users/profile.html', {'user': auth_data['user_data']})
+            else:
+                print("Données manquantes pour la mise à jour du profil.")
+        else:
+            print("Méthode HTTP non autorisée pour cette vue.")
+    else:
+        print("Utilisateur non authentifié.")
+
+    return render(request, 'users/profile.html')
+
+
+
+def delete_profile(request):
+    auth_data = auth_context(request)
+    
+    if auth_data['is_authenticated']:
+        user_id = auth_data['user_data']['user_id']
+        
+        if request.method == 'POST':
+            with connection.cursor() as cursor:
+                try:
+                    cursor.execute("DELETE FROM users WHERE id = %s", [user_id])
+                    print("Utilisateur supprimé avec succès")
+                    logout(request)
+                    return redirect('/')
+                except Exception as e:
+                    print("Erreur lors de la suppression de l'utilisateur:", e)
+        else:
+            print("Méthode HTTP non autorisée")
+    else:
+        print("Utilisateur non authentifié")
+
+    return render(request, 'users/profile.html')
