@@ -1,8 +1,17 @@
 {% extends "base.html" %} 
 
 {% block content %} 
+
+  <section class="profile">
     <h1>Profile</h1>
+    <p>Nom: {{ user.id }}</p>
     <p>Nom: {{ user.first_name }}</p>
     <p>Prénom: {{ user.last_name }}</p>
     <p>Email: {{ user.email }}</p>
+  </section>
+
+  {% include 'users/order_history.html' with orders_detail=orders_detail %}
+
+  
+    
 {% endblock content %}

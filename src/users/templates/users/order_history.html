@@ -1,0 +1,23 @@
+<section class="history">
+
+    <h3>Orders History</h3>
+
+    {% for order_detail in orders_detail %}
+            <div>
+                <p>Order ID: {{ order_detail.order.0 }}</p> <!-- 0 correspond à l'index de 'id' dans les détails de la commande -->
+                <p>Total: {{ order_detail.order.1 }} €</p> 
+                <p>Status: {{ order_detail.order.2 }}</p><!-- 2 correspond à l'index de 'status' dans les détails de la commande -->
+                <!-- Boucle pour afficher les détails des éléments de la commande -->
+                {% for item_data in order_detail.items %}
+                    <div>
+                        <p>Bubble: {{ item_data.1 }}</p> <!-- 1 correspond à l'index de 'basic_taste' dans les détails de l'élément -->
+                        <p>Topping: {{ item_data.2 }}</p> <!-- 2 correspond à l'index de 'topping' dans les détails de l'élément -->
+                        <p>Sugar: {{ item_data.3 }}</p> <!-- 3 correspond à l'index de 'sugar' dans les détails de l'élément -->
+                        <p>Size: {{ item_data.4 }}</p> <!-- 4 correspond à l'index de 'size' dans les détails de l'élément -->
+                        <p>P.U: {{ item_data.5 }} €</p> <!-- 5 correspond à l'index de 'price' dans les détails de l'élément -->
+                        <p>Quantity: {{ item_data.6 }}</p> <!-- 6 correspond à l'index de 'quantity' dans les détails de l'élément -->
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+</section>

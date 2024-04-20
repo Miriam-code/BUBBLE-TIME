@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db import connection
+from users.utils import verify_token
+from users.views import auth_context
 
 panier = []
 
@@ -52,25 +54,30 @@ def basket(request):
     return render(request, 'orders/basket.html', {'panier': panier, 'total_global': total_global})
 
 def valider_panier(request):
-
     if request.method == 'POST':
-        total_global = sum(item['total'] for item in panier)
+        auth_context_data = auth_context(request)  # Obtenir le contexte d'authentification
+        if auth_context_data['is_authenticated']:
+            user_id = auth_context_data['user_data']['user_id']  # Récupérer l'ID de l'utilisateur
         
-        with connection.cursor() as cursor:
-            cursor.execute("INSERT INTO orders (total, status) VALUES (%s, 'en cours de préparation')", [total_global])
-            order_id = cursor.lastrowid 
-       
-        for item in panier:
-            basic_taste = item['basic_taste']
-            topping = item['topping']
-            sugar = item['sugar']
-            size = item['size']
-            price = item['total']
-            quantity = item['quantity']
+            total_global = sum(item['total'] for item in panier)
             
             with connection.cursor() as cursor:
-                cursor.execute("INSERT INTO orders_items (basic_taste, topping, sugar, size, price, quantity, orders_id) VALUES (%s, %s, %s, %s, %s, %s, %s)", [basic_taste, topping, sugar, size, price, quantity, order_id])
+                cursor.execute("INSERT INTO orders (total, status, user_id) VALUES (%s, 'en cours de préparation', %s)", [total_global, user_id])
+                order_id = cursor.lastrowid 
+            
+            for item in panier:
+                basic_taste = item['basic_taste']
+                topping = item['topping']
+                sugar = item['sugar']
+                size = item['size']
+                price = item['total']
+                quantity = item['quantity']
+                
+                with connection.cursor() as cursor:
+                    cursor.execute("INSERT INTO orders_items (basic_taste, topping, sugar, size, price, quantity, orders_id) VALUES (%s, %s, %s, %s, %s, %s, %s)", [basic_taste, topping, sugar, size, price, quantity, order_id])
 
-        return redirect('users:profile')
+            return redirect('users:profile')
+        else:
+            return redirect('index')
     else:
         return redirect('index')

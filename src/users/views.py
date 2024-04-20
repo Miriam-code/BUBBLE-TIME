@@ -6,6 +6,7 @@ import jwt
 from datetime import datetime, timedelta
 from .utils import verify_token
 from django.http import HttpResponse
+from django.http import Http404
 
 
 def sign_up(request):
@@ -49,8 +50,6 @@ def sign_up(request):
 
     return render(request, 'users/register.html', {'form': form})
 
-
-
 def sign_in(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -85,6 +84,27 @@ def sign_in(request):
     else:
         return render(request, 'users/login.html')
 
+def get_user_orders(user_id):
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM orders WHERE user_id = %s", [user_id])
+        user_orders = cursor.fetchall()
+
+        orders_detail = []
+        for order in user_orders:
+            
+            cursor.execute("SELECT * FROM orders_items WHERE orders_id = %s", [order[0]])
+            items = cursor.fetchall()
+
+            print('items', items)
+
+            order_detail = {
+                'order': order,
+                'items': items
+            }
+            orders_detail.append(order_detail)
+
+    return orders_detail
+
 def get_me(request):
     payload = verify_token(request)
     is_authenticated = False
@@ -99,12 +119,21 @@ def get_me(request):
         if user_data:
             user_id, first_name, last_name, email = user_data
             is_authenticated = True
-            return render(request, 'users/profile.html', {'user': {'id': user_id, 'first_name': first_name, 'last_name': last_name, 'email': email}, 'is_authenticated': is_authenticated})
+            
+            orders_detail = get_user_orders(user_id)
+
+            print('orders details' , orders_detail)
+            
+            return render(request, 'users/profile.html', {
+                'user': {'id': user_id, 'first_name': first_name, 'last_name': last_name, 'email': email}, 
+                'is_authenticated': is_authenticated,
+                'orders_detail': orders_detail 
+            })
         else:
             return HttpResponse("Utilisateur non trouvé.")
-
     else:
         return HttpResponse("Token non trouvé. Veuillez vous connecter.")
+
     
 def logout(request):
     response = redirect('products:index')

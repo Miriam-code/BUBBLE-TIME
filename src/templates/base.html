@@ -13,6 +13,9 @@
   <section id="bubble">
     {% block content %}{% endblock %}
   </section>
+  <p>Nom: {{ user_data.user_id }}</p>
+  <p>Prénom: {{ user_data.last_name }}</p>
+  <p>Email: {{ user_data.email }}</p>
   {% include 'bubble.html' %}
   {% include 'footer.html' %}
 </body>
