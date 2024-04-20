@@ -3,7 +3,7 @@
     <h3>Orders History</h3>
 
     {% for order_detail in orders_detail %}
-            <div>
+            <div class="bubbles_lists">
                 <p>Order ID: {{ order_detail.order.0 }}</p> 
                 <p>Total: {{ order_detail.order.1 }} €</p> 
                 <p>Status: {{ order_detail.order.2 }}</p>

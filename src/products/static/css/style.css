@@ -8,8 +8,8 @@ body {
 
 /* register & login */
 
-.error ul,li  {
-  color: red;
+.error ul, .error li  {
+  color: black;
   text-align: center;
 }
 
@@ -18,7 +18,7 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-image: url("../img/bubble.png");
+  /*background-image: url("../img/bubble.png");*/
 background-position: center;
 background-size: cover;
 
@@ -247,7 +247,7 @@ nav li a:hover {
   outline: none;
 }
 
-.bubble button , .form_bubble button {
+.bubble button , .form_bubble button , .panier button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -279,6 +279,7 @@ nav li a:hover {
 }
 
 .form_bubble{
+  width: 800px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -287,4 +288,46 @@ nav li a:hover {
   background-color: white;
   border-radius: 8px;
   padding: 20px;
+  margin: 50px;
 }
+
+.formbubble{
+  display: flex;
+  flex-direction: row;
+
+}
+
+/******* PANIER ********************/
+
+.panier , .bubbles_lists {
+
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  margin: 20px;
+
+}
+
+.panier ul {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.bubbles_lists {
+
+  background-color: #FCFCFC;
+  border-radius: 8px;
+  width: 800px;
+
+}
+.history {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+

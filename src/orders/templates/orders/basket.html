@@ -2,9 +2,9 @@
 {% block content %} 
 <h1>Panier</h1>
 
-<div class="bubbles_list">
+<div class="bubbles_lists">
 
-    <form method="POST" action="{% url 'orders:valider_panier' %}">
+    <form method="POST" action="{% url 'orders:valider_panier' %}" class="panier"> 
         {% csrf_token %}
         <ul>
             {% for item in panier %}
@@ -26,7 +26,7 @@
         <button type="submit">Valider le panier</button>
     </form>
 
-    <form method="POST" action="{% url 'orders:vider_panier' %}">
+    <form method="POST" action="{% url 'orders:vider_panier' %}" class="panier">
         {% csrf_token %}
         <button type="submit">Vider le panier</button>
     </form>

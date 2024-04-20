@@ -1,16 +1,16 @@
 {% extends "base.html" %} 
+{% load static %}
 {% block content %} 
 
 {% include 'products/menu.html' with bubbles=bubbles %}
 
-   <section>
+  <form method="POST" action="{% url 'orders:ajouter_panier' %}" class="form_bubble">
 
-    <form method="POST" action="{% url 'orders:ajouter_panier' %}" class="form_bubble">
-
-        <h2>Créez votre Bubble Tea</h2>
-        {% csrf_token %}
-
-        <div class="row">
+            <h2>Hello {{ user_data.last_name }} ! </p></h2>
+            <h3>Crée ton Bubble Tea</h2>
+            {% csrf_token %}
+            
+            <div class="row">
             <label for="basic_taste">Basic taste:</label><br>
             <select id="basic_taste" name="basic_taste" required>
             <option value="Milk Coffee">Milk Coffee</option>
@@ -36,11 +36,11 @@
             <option value="Kiwi">Kiwi</option>
             <option value="Cherry">Cherry</option>
             <option value="Apple">Apple</option>
-        </select><br><br>
+        </select>
         </div>
 
         <div class="row">
-            <label for="sugar">Sugar ( 1 > 5):</label><br>
+            <label for="sugar">Sugar ( 1 > 5):</label>
             <input type="number" id="sugar" name="sugar" min="1" max="5" required><br><br>      
         </div>
 
@@ -52,19 +52,23 @@
                 <option value="medium">Medium</option>
                 <option value="large">Large</option>
             </select>
+
         </div>
 
         <div class="row">
             <label for="quantity">Quantity:</label><br>
-            <input type="number" id="quantity" name="quantity" min="1"required><br><br>
+            <input type="number" id="quantity" name="quantity" min="1"required>
+
         </div>
 
+
         <button type="submit">Add Cart</button>
+</form>
 
-    </form>
+    <div class="form_image">
+        <img src="{% static 'img/gif.gif' %}" alt="bubbletea">
+    </div>
+
+
     
-   </section>
-
-    
-
 {% endblock content %}
