@@ -1,6 +1,6 @@
 {% extends "base.html" %} 
-
 {% block content %} 
+{% load static %}
 
   <section class="profile">
     <h1>Profile</h1>
@@ -10,25 +10,31 @@
   </section>
 
   {% include 'users/order_history.html' with orders_detail=orders_detail %}
-    
-    <p>id: {{ user.id }}</p>
 
-    <form method="POST" action="{% url 'users:update_profile' %}">
+<div class="profile-container">
+    <form class="profile-form" method="POST" action="{% url 'users:update_profile' %}">
         {% csrf_token %}
-      <input type="text" name="first_name" placeholder="Prénom" value="{{ user.first_name }}"><br>
-      <input type="text" name="last_name" placeholder="Nom" value="{{ user.last_name }}"><br>
-      <input type="password" name="password" placeholder="Mot de passe" value=""><br>
-      <button type="submit">Mettre à jour</button>
+        <p>Modifier votre profil utilisateur ci-dessous:</p><br>
+        <div class="profile-info">
+            <p>votre nouveau prénom:</p>
+            <input type="text" name="first_name" placeholder="Prénom" value="{{ user.first_name }}"><br>
+            <p>votre nouveau nom:</p>
+            <input type="text" name="last_name" placeholder="Nom" value="{{ user.last_name }}"><br>
+            <p>votre nouveau mot de passe:</p>
+            <input type="password" name="password" placeholder="Mot de passe" value="" pattern=".{6,}" title="Le mot de passe doit contenir au moins 6 caractères"><br>
+        </div>
+        <button type="submit">Mettre à jour</button>
     </form>
+</div>
 
-    <h2>Quitter définitivement l'application</h2>
-    <p>Est tu certain de vouloir supprimer ton profil ?</p>
-    <form action="" method="post">
+<div>
+    <h2 class="testrouge">Quitter définitivement l'application</h2><br>
+    <p>Est tu certain de vouloir supprimer ton profil ? <br> Attention cette action sera irréversible !!</p><br>
+    <form class="delete-form" action="{% url 'users:delete_profile' %}" method="POST">
+        <p class="error">{{ form.errors.password }}</p>
         {% csrf_token %}
         <button type="submit">Delete Account</button>
     </form>
+</div>
 
 {% endblock content %}
-
-{% load static %} 
-<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">

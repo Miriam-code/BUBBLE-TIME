@@ -201,14 +201,14 @@ def delete_profile(request):
     
     if auth_data['is_authenticated']:
         user_id = auth_data['user_data']['user_id']
+        print('user_id',user_id)
         
         if request.method == 'POST':
             with connection.cursor() as cursor:
                 try:
                     cursor.execute("DELETE FROM users WHERE id = %s", [user_id])
                     print("Utilisateur supprimé avec succès")
-                    logout(request)
-                    return redirect('/')
+                    return logout(request)
                 except Exception as e:
                     print("Erreur lors de la suppression de l'utilisateur:", e)
         else:

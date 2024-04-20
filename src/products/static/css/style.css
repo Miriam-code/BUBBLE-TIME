@@ -331,3 +331,82 @@ nav li a:hover {
   justify-content: center;
 }
 
+/****************************************** PROFILE - UPDATE *********************************************************************/ 
+
+.profile-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.profile-info {
+  margin-bottom: 20px;
+  background-color: #3cb5dd ;
+  border-radius: 4px;
+}
+
+.profile-form {
+  display: inline-flex;
+  flex-direction: column;
+  position: relative;
+  font-family: Poppins;
+  box-shadow: 0 0 3px #ddd;
+  overflow: hidden;
+  border-radius: 4px;
+}
+.profile-form input {
+  min-width: 150px;
+  font-family: Poppins;
+  padding: 10px 0 5px 10px;
+  margin: 5px;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid #ccc;
+  border-radius: 5px;
+  transition: 0.5s;
+  &:focus + label,
+  &:not(:placeholder-shown) + label {
+    transform: translateY(-30%);
+    font-size: 0.6rem;
+}
+}
+.profile-form button {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.profile-form button:hover {
+  background-color: #45a049;
+}
+
+.profile-form button[type="submit"] {
+  margin-top: 10px;
+}
+
+.delete-form button {
+  padding: 10px;
+  border: 2px solid black;
+  background-color: #cbce15;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-form button:hover {
+  border: 2px solid black;
+  background-color: #6c9dbe;
+}
+
+.testrouge {
+  color: rgb(238, 235, 235);
+  font-weight: 500;
+}
+
